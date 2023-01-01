@@ -9,6 +9,13 @@ $ git clone https://github.com/4ndrs/delete-thumbnail.git
 $ cd delete-thumbnail
 $ npm ci
 $ npm run build
-$ npm pack
-# npm install -g ./delete-thumbnail-1.0.0.tgz
+# npm install -g .
 ````
+
+## Usage
+
+```console
+$ delete-thumbnail /tmp/Videos/Punkjack.webm
+No thumbnail found under /home/user/.cache/thumbnails/normal
+Deleted thumbnail under /home/user/.cache/thumbnails/large
+```
