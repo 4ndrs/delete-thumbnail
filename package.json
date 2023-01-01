@@ -1,0 +1,35 @@
+{
+  "name": "delete-thumbnail",
+  "version": "1.0.0",
+  "description": "Removes the specified file's thumbnails found in the local cache folder",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "npm run build -- --watch"
+  },
+  "bin": {
+    "delete-thumbnail": "./bin/delete-thumbnail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4ndrs/delete-thumbnail.git"
+  },
+  "author": "4ndrs <andres.degozaru@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/4ndrs/delete-thumbnail/issues"
+  },
+  "homepage": "https://github.com/4ndrs/delete-thumbnail#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/yargs": "^17.0.18",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.31.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "yargs": "^17.6.2"
+  }
+}
