@@ -12,15 +12,13 @@ const main = async () => {
   const hash = createHash("md5").update(fileUrl).digest("hex");
 
   const sizes = ["large", "normal"];
-  const cacheFolders = sizes.map(
-    (size) => `${homedir}/.cache/thumbnails/${size}`
-  );
+  const cacheDirs = sizes.map((size) => `${homedir}/.cache/thumbnails/${size}`);
 
   await Promise.all(
-    cacheFolders.map(async (cacheFolder) => {
+    cacheDirs.map(async (cacheDir) => {
       try {
-        await deleteThumbnail(hash, cacheFolder);
-        console.info(`Deleted thumbnail under ${cacheFolder}`);
+        await deleteThumbnail(hash, cacheDir);
+        console.info(`Deleted thumbnail under ${cacheDir}`);
       } catch (error) {
         if (isError(error)) {
           console.error(error.message);
@@ -31,17 +29,17 @@ const main = async () => {
   );
 };
 
-const deleteThumbnail = async (hash: string, cacheFolder: string) => {
-  const thumbnailPath = `${cacheFolder}/${hash}.png`;
+const deleteThumbnail = async (hash: string, cacheDir: string) => {
+  const thumbnailPath = `${cacheDir}/${hash}.png`;
 
   try {
     await unlink(thumbnailPath);
   } catch (error) {
     if (isError(error) && error.code === "ENOENT") {
-      throw new Error(`No thumbnail found under ${cacheFolder}`);
+      throw new Error(`No thumbnail found under ${cacheDir}`);
     } else if (isError(error) && error.code === "EPERM") {
       throw new Error(
-        `Unable to delete thumbnail under ${cacheFolder}: ` +
+        `Unable to delete thumbnail under ${cacheDir}: ` +
           "Operation not permitted"
       );
     }

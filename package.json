@@ -1,7 +1,7 @@
 {
   "name": "delete-thumbnail",
   "version": "1.0.0",
-  "description": "Removes the specified file's thumbnails found in the local cache folder",
+  "description": "Removes the specified file's thumbnails found in the local cache directory",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

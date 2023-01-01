@@ -1,6 +1,6 @@
 # delete-thumbnail
 
-Removes the specified file's thumbnails found in the local cache folder.
+Removes the specified file's thumbnails found in the local cache directory.
 
 ## Building & installing
 
