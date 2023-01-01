@@ -11,6 +11,9 @@
   "bin": {
     "delete-thumbnail": "./bin/delete-thumbnail"
   },
+  "os": [
+    "linux"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/4ndrs/delete-thumbnail.git"
