@@ -42,6 +42,8 @@ const deleteThumbnail = async (hash: string, cacheDir: string) => {
         `Unable to delete thumbnail under ${cacheDir}: ` +
           "Operation not permitted"
       );
+    } else {
+      throw error;
     }
   }
 };
