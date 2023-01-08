@@ -7,12 +7,21 @@ import { homedir } from "node:os";
 import { unlink } from "node:fs/promises";
 
 const main = async () => {
-  const filePath = await parseArgs();
-  const fileUrl = pathToFileURL(filePath).toString();
-  const hash = createHash("md5").update(fileUrl).digest("hex");
+  const filePaths = await parseArgs();
+  const fileUrls = filePaths.map((filePath) =>
+    pathToFileURL(filePath).toString()
+  );
 
   const sizes = ["large", "normal"];
   const cacheDirs = sizes.map((size) => `${homedir}/.cache/thumbnails/${size}`);
+
+  await Promise.all(
+    fileUrls.map((fileUrl) => processFileUrl(fileUrl, cacheDirs))
+  );
+};
+
+const processFileUrl = async (fileUrl: string, cacheDirs: Array<string>) => {
+  const hash = createHash("md5").update(fileUrl).digest("hex");
 
   await Promise.all(
     cacheDirs.map(async (cacheDir) => {
@@ -49,7 +58,7 @@ const deleteThumbnail = async (hash: string, cacheDir: string) => {
 };
 
 const parseArgs = async () => {
-  const usageMessage = "Usage: $0 [FILE]\nDeletes the thumbnails of FILE.";
+  const usageMessage = "Usage: $0 [FILE...]\nDeletes the thumbnails of FILEs.";
   const minMessage = "The FILE location is missing";
 
   const parser = yargs(process.argv.slice(2))
@@ -58,8 +67,8 @@ const parseArgs = async () => {
     .demandCommand(1, minMessage)
     .usage(usageMessage);
 
-  const [filePath] = (await parser.argv)._;
-  return path.resolve(String(filePath));
+  const filePaths = Array.from(new Set((await parser.argv)._));
+  return filePaths.map((filePath) => path.resolve(String(filePath)));
 };
 
 const isError = (error: unknown): error is NodeJS.ErrnoException =>
